@@ -1,4 +1,4 @@
-# Katana Renderman OSL Shaders
+# Katana OSL Shaders
 Blender-like OSL shaders in Renderman for Katana.
 
 The PXR shading nodes are missing a lot of basic features, so I made these shaders inspired by Blender's node system.
