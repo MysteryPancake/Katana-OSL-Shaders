@@ -1,0 +1,74 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpp6hn2lm0.oso -IC:\Users\MysteryPancake\Desktop\comparenodecontribution\build_windows_Full_x64_vc17_Release\bin\Debug\3.5\scripts\addons\cycles\shader
+shader HueSaturationValue
+param	float	Hue	0.5		%read{3,3} %write{2147483647,-1}
+param	float	Saturation	1		%read{8,8} %write{2147483647,-1}
+param	float	Value	1		%read{14,14} %write{2147483647,-1}
+param	float	Factor	1		%meta{float,min,0} %meta{float,max,1}  %read{19,19} %write{2147483647,-1}
+param	color	ColorIn	0 0 0		%meta{string,label,"Color"}  %read{1,19} %write{2147483647,-1}
+oparam	color	ColorOut	0 0 0		%meta{string,label,"Color"}  %read{2147483647,-1} %write{19,19}
+local	color	Color	%read{2,19} %write{1,18}
+const	string	$const1	"hsv"		%read{1,16} %write{2147483647,-1}
+const	string	$const2	"transformc"		%read{0,0} %write{2147483647,-1}
+const	string	$const3	"rgb"		%read{1,16} %write{2147483647,-1}
+temp	float	$tmp1	%read{6,6} %write{5,5}
+const	int	$const4	0		%read{2,6} %write{2147483647,-1}
+temp	float	$tmp2	%read{3,3} %write{2,2}
+temp	float	$tmp3	%read{4,4} %write{3,3}
+const	float	$const5	0.5		%read{4,4} %write{2147483647,-1}
+temp	float	$tmp4	%read{5,5} %write{4,4}
+const	float	$const6	1		%read{5,10} %write{2147483647,-1}
+temp	float	$tmp5	%read{12,12} %write{11,11}
+const	int	$const7	1		%read{7,12} %write{2147483647,-1}
+temp	float	$tmp6	%read{8,8} %write{7,7}
+temp	float	$tmp7	%read{10,10} %write{8,8}
+const	float	$const8	0		%read{11,17} %write{2147483647,-1}
+const	string	$const9	"clamp"		%read{9,9} %write{2147483647,-1}
+temp	float	$tmp8	%read{11,11} %write{10,10}
+const	int	$const10	2		%read{13,15} %write{2147483647,-1}
+temp	float	$tmp9	%read{14,14} %write{13,13}
+temp	float	$tmp10	%read{15,15} %write{14,14}
+temp	color	$tmp11	%read{18,18} %write{17,17}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:15
+#     Color[0] = fmod(Color[0] + Hue + 0.5, 1.0);
+	functioncall	$const2 2 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl"} %line{15} %argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\comparenodecontribution\\build_windows_Full_x64_vc17_Release\\bin\\Debug\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:304
+# color transformc (string to, color c) { return transformc ("rgb", to, c); }
+	transformc	Color $const3 $const1 ColorIn 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\comparenodecontribution\\build_windows_Full_x64_vc17_Release\\bin\\Debug\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{304} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:16
+#     Color[1] = clamp(Color[1] * Saturation, 0.0, 1.0);
+	compref		$tmp2 Color $const4 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl"} %line{16} %argrw{"wrr"}
+	add		$tmp3 $tmp2 Hue 	%argrw{"wrr"}
+	add		$tmp4 $tmp3 $const5 	%argrw{"wrr"}
+	fmod		$tmp1 $tmp4 $const6 	%argrw{"wrr"}
+	compassign	Color $const4 $tmp1 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:17
+#     Color[2] *= Value;
+	compref		$tmp6 Color $const7 	%line{17} %argrw{"wrr"}
+	mul		$tmp7 $tmp6 Saturation 	%argrw{"wrr"}
+	functioncall	$const9 12 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\comparenodecontribution\\build_windows_Full_x64_vc17_Release\\bin\\Debug\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:141
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp8 $tmp7 $const6 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\comparenodecontribution\\build_windows_Full_x64_vc17_Release\\bin\\Debug\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{141} %argrw{"wrr"}
+	max		$tmp5 $tmp8 $const8 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:17
+#     Color[2] *= Value;
+	compassign	Color $const7 $tmp5 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl"} %line{17} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:18
+# 
+	compref		$tmp9 Color $const10 	%line{18} %argrw{"wrr"}
+	mul		$tmp10 $tmp9 Value 	%argrw{"wrr"}
+	compassign	Color $const10 $tmp10 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:20
+#     Color = max(Color, 0.0);
+	transformc	Color $const1 $const3 Color 	%line{20} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:21
+#     ColorOut = mix(ColorIn, Color, Factor);
+	assign		$tmp11 $const8 	%line{21} %argrw{"wr"}
+	max		Color Color $tmp11 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\HueSaturationValue.osl:22
+# }
+	mix		ColorOut ColorIn Color Factor 	%line{22} %argrw{"wrrr"}
+	end

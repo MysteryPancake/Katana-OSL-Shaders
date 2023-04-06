@@ -1,0 +1,22 @@
+shader HueSaturationValue(
+    float Hue = 0.5,
+    float Saturation = 1.0,
+    float Value = 1.0,
+    float Factor = 1.0
+        [[ float min = 0.0,
+        float max = 1.0 ]],
+    color ColorIn = 0.0
+        [[ string label = "Color" ]],
+    output color ColorOut = 0.0
+        [[ string label = "Color" ]]
+) {
+    // Ripped from Blender's source code
+    color Color = transformc("hsv", ColorIn);
+    Color[0] = fmod(Color[0] + Hue + 0.5, 1.0);
+    Color[1] = clamp(Color[1] * Saturation, 0.0, 1.0);
+    Color[2] *= Value;
+
+    Color = transformc("hsv", "rgb", Color);
+    Color = max(Color, 0.0);
+    ColorOut = mix(ColorIn, Color, Factor);
+}
