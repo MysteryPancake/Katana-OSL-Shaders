@@ -10,6 +10,7 @@ shader TextureCoordinate(
     output point UV_Per_Polygon = 0.0
         [[ string label = "Per Polygon UV" ]],
     output vector Tangent = 0.0,
+    output point View = 0.0,
     output normal View_Normal = 0.0
         [[ string label = "View Normal" ]],
     output point Ray_Footprint = 0.0
@@ -40,7 +41,10 @@ shader TextureCoordinate(
     getattribute("builtin", "Tn", tn);
     Tangent = transform(Coordinate_Space, tn);
 
-    // Normalized view, could be good for holograms or perspective stuff?
+    // Ripped from Blender's source code
+    View = transform("world", "camera", P);
+
+    // Could be good for holograms or perspective stuff?
     View_Normal = transform(Coordinate_Space, normalize(-I));
 
     // Seems to find edges, could be good for subsurface?

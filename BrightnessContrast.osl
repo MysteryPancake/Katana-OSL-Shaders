@@ -7,6 +7,7 @@ shader BrightnessContrast(
     output color Value = 0.0
         [[ string label = "Color" ]]
 ) {
+    // Ripped from Blender's source code
     Value = (1.0 + Contrast) * Color + (Brightness - Contrast * 0.5);
     if (Clamp) {
         Value = max(vector(0.0), Value);
