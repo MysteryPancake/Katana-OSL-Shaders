@@ -1,0 +1,11 @@
+shader SeparateXYZ(
+    vector Vector = 0.0,
+    output float X = 0.0,
+    output float Y = 0.0,
+    output float Z = 0.0,
+) {
+    // Same as PxrToFloat
+    X = Vector[0];
+    Y = Vector[1];
+    Z = Vector[2];
+}

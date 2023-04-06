@@ -1,0 +1,42 @@
+shader GaborNoise(
+    string Dimensions = "4D"
+        [[ string widget = "mapper",
+        string options = "1D (X):1D|2D (X, Y):2D|3D (X, Y, Z):3D|4D (X, Y, Z, W):4D" ]],
+    float Minimum = 0.0,
+    float Maximum = 1.0,
+    point Position_XYZ = P
+        [[ string label = "Position XYZ" ]],
+    float Position_W = 0.0
+        [[ string label = "Position W" ]],
+    vector Scale_XYZ = 1.0
+        [[ string label = "Scale XYZ" ]],
+    float Scale_W = 1.0
+        [[ string label = "Scale W" ]],
+    int Anisotropic = 0
+        [[ string widget = "mapper",
+        string options = "Isotropic:0|Anisotropic Along:1|Anisotropic Radial:2" ]],
+    vector Direction = 0.0,
+    float Bandwidth = 1.0,
+    float Impulses = 16.0,
+    int Do_Filter = 1
+        [[ string label = "Do Filter",
+        string widget = "checkBox" ]],
+    output color Color = 0.0,
+    output float Float = 0.0
+) {
+    point pos = Position_XYZ * Scale_XYZ;
+    float w = Position_W * Scale_W;
+    color result;
+    if (Dimensions == "1D") {
+        result = noise("gabor", pos[0], "anisotropic", Anisotropic, "direction", Direction, "bandwidth", Bandwidth, "impulses", Impulses, "do_filter", Do_Filter);
+    } else if (Dimensions == "2D") {
+        result = noise("gabor", pos[0], pos[1], "anisotropic", Anisotropic, "direction", Direction, "bandwidth", Bandwidth, "impulses", Impulses, "do_filter", Do_Filter);
+    } else if (Dimensions == "3D") {
+        result = noise("gabor", pos, "anisotropic", Anisotropic, "direction", Direction, "bandwidth", Bandwidth, "impulses", Impulses, "do_filter", Do_Filter);
+    } else {
+        result = noise("gabor", pos, w, "anisotropic", Anisotropic, "direction", Direction, "bandwidth", Bandwidth, "impulses", Impulses, "do_filter", Do_Filter);
+    }
+    // Normalize [-1, 1] Gabor noise to [0, 1] range for mixing
+    Color = mix(vector(Minimum), vector(Maximum), result * 0.5 + 0.5);
+    Float = mix(Minimum, Maximum, result[0] * 0.5 + 0.5);
+}

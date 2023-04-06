@@ -1,0 +1,13 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmp1pb5b8wk.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader CombineXYZ
+param	float	X	0		%read{0,0} %write{2147483647,-1}
+param	float	Y	0		%read{0,0} %write{2147483647,-1}
+param	float	Z	0		%read{0,0} %write{2147483647,-1}
+oparam	vector	Vector	0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\CombineXYZ.osl:9
+# }
+	vector		Vector X Y Z 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\CombineXYZ.osl"} %line{9} %argrw{"wrrr"}
+	end

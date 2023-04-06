@@ -1,0 +1,106 @@
+shader FloatMath(
+    string Mode = "Add"
+        [[ string widget = "mapper",
+            string options = "Add (X + Y):Add|Subtract (X - Y):Subtract|Multiply (X * Y):Multiply|Divide (X / Y):Divide|Mod (X % Y):Modulo|Min (X, Y):Minimum|Max (X, Y):Maximum|Clamp (X, Y, Z):Clamp|Hypot (X, Y):HypotXY|Hypot (X, Y, Z):HypotXYZ|Abs (X):Abs|Sign (X):Sign|Floor (X):Floor|Ceil (X):Ceil|Round (X):Round|Trunc (X):Trunc|Sqrt (X):Sqrt|InvSqrt (X):InvSqrt|Cbrt (X):Cbrt|Sin (X):Sin|Cos (X):Cos|Tan (X):Tan|Power (X ^ Y):Power|Exp (X):Exp|Exp2 (X):Exp2|Exp-1 (X):Exp-1|Log (X log Y):Logarithm|LogE (X):LogE|Log2 (X):Log2|Log10 (X):Log10|Logb (X):LogB|Acos (X):Acos|Asin (X):Asin|Atan (X):Atan|Atan2 (X):Atan2|Cosh (X):Cosh|Sinh (X):Sinh|Tanh (X):Tanh|Rad2Deg (X):Rad2Deg|Deg2Rad (X):Deg2Rad|Step (X, Y):Step|LinearStep (X, Y, Z):LinearStep|SmoothStep (X, Y, Z):SmoothStep|Select (X, Y, Z):Select" ]],
+	int Clamp = 0
+        [[ string widget = "checkBox" ]],
+    float X = 0.0,
+    float Y = 0.0,
+    float Z = 0.0,
+    output float Value = 0.0
+) {
+    if (Mode == "Add") {
+        Value = X + Y;
+    } else if (Mode == "Subtract") {
+        Value = X - Y;
+    } else if (Mode == "Multiply") {
+        Value = X * Y;
+    } else if (Mode == "Divide") {
+        Value = X / Y;
+    } else if (Mode == "Modulo") {
+        Value = mod(X, Y);
+    } else if (Mode == "Minimum") {
+        Value = min(X, Y);
+    } else if (Mode == "Maximum") {
+        Value = max(X, Y);
+    } else if (Mode == "Clamp") {
+        Value = clamp(X, Y, Z);
+    } else if (Mode == "Mix") {
+        Value = mix(X, Y, Z);
+    } else if (Mode == "HypotXY") {
+        Value = hypot(X, Y);
+    } else if (Mode == "HypotXYZ") {
+        Value = hypot(X, Y, Z);
+    } else if (Mode == "Abs") {
+        Value = abs(X);
+    } else if (Mode == "Sign") {
+        Value = sign(X);
+    } else if (Mode == "Floor") {
+        Value = floor(X);
+    } else if (Mode == "Ceil") {
+        Value = ceil(X);
+    } else if (Mode == "Round") {
+        Value = round(X);
+    } else if (Mode == "Trunc") {
+        Value = trunc(X);
+    } else if (Mode == "Sqrt") {
+        Value = sqrt(X);
+    } else if (Mode == "InvSqrt") {
+        Value = inversesqrt(X);
+    } else if (Mode == "Cbrt") {
+        Value = cbrt(X);
+    } else if (Mode == "Sin") {
+        Value = sin(X);
+    } else if (Mode == "Cos") {
+        Value = cos(X);
+    } else if (Mode == "Tan") {
+        Value = tan(X);
+    } else if (Mode == "Power") {
+        Value = pow(X, Y);
+    } else if (Mode == "Exp") {
+        Value = exp(X);
+    } else if (Mode == "Exp2") {
+        Value = exp2(X);
+    } else if (Mode == "Exp-1") {
+        Value = expm1(X);
+    } else if (Mode == "Logarithm") {
+        Value = log(X, Y);
+    } else if (Mode == "LogE") {
+        Value = log(X);
+    } else if (Mode == "Log2") {
+        Value = log2(X);
+    } else if (Mode == "Log10") {
+        Value = log10(X);
+    } else if (Mode == "LogB") {
+        Value = logb(X);
+    } else if (Mode == "Acos") {
+        Value = acos(X);
+    } else if (Mode == "Asin") {
+        Value = asin(X);
+    } else if (Mode == "Atan") {
+        Value = atan(X);
+    } else if (Mode == "Atan2") {
+        Value = atan2(X, Y);
+    } else if (Mode == "Cosh") {
+        Value = cosh(X);
+    } else if (Mode == "Sinh") {
+        Value = sinh(X);
+    } else if (Mode == "Tanh") {
+        Value = tanh(X);
+    } else if (Mode == "Rad2Deg") {
+        Value = degrees(X);
+    } else if (Mode == "Deg2Rad") {
+        Value = radians(X);
+    } else if (Mode == "Step") {
+        Value = step(X, Y);
+    } else if (Mode == "LinearStep") {
+        Value = linearstep(X, Y, Z);
+    } else if (Mode == "SmoothStep") {
+        Value = smoothstep(X, Y, Z);
+    } else if (Mode == "Select") {
+        Value = select(X, Y, Z);
+    }
+    if (Clamp) {
+        Value = clamp(Value, 0.0, 1.0);
+    }
+}

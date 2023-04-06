@@ -1,0 +1,80 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpyu3uuo8d.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader PerlinNoise
+param	string	Dimensions	"4D"		%meta{string,widget,"mapper"} %meta{string,options,"1D (X):1D|2D (X, Y):2D|3D (X, Y, Z):3D|4D (X, Y, Z, W):4D"}  %read{3,12} %write{2147483647,-1}
+param	float	Minimum	0		%read{16,20} %write{2147483647,-1}
+param	float	Maximum	1		%read{17,20} %write{2147483647,-1}
+param	point	Position_XYZ	0 0 0		%meta{string,label,"Position XYZ"}  %read{1,1} %write{0,0} %initexpr
+param	float	Position_W	0		%meta{string,label,"Position W"}  %read{2,2} %write{2147483647,-1}
+param	vector	Scale_XYZ	1 1 1		%meta{string,label,"Scale XYZ"}  %read{1,1} %write{2147483647,-1}
+param	float	Scale_W	1		%meta{string,label,"Scale W"}  %read{2,2} %write{2147483647,-1}
+oparam	color	Color	0 0 0		%read{2147483647,-1} %write{18,18}
+oparam	float	Float	0		%read{2147483647,-1} %write{20,20}
+global	point	P	%read{0,0} %write{2147483647,-1}
+local	point	pos	%read{5,15} %write{1,1}
+local	float	w	%read{15,15} %write{2,2}
+local	color	result	%read{18,19} %write{6,15}
+const	string	$const1	"1D"		%read{3,3} %write{2147483647,-1}
+temp	int	$tmp1	%read{4,4} %write{3,3}
+const	string	$const2	"uperlin"		%read{6,15} %write{2147483647,-1}
+const	int	$const3	0		%read{5,19} %write{2147483647,-1}
+temp	float	$tmp2	%read{6,6} %write{5,5}
+const	string	$const4	"2D"		%read{7,7} %write{2147483647,-1}
+temp	int	$tmp3	%read{8,8} %write{7,7}
+temp	float	$tmp4	%read{11,11} %write{9,9}
+const	int	$const5	1		%read{10,10} %write{2147483647,-1}
+temp	float	$tmp5	%read{11,11} %write{10,10}
+const	string	$const6	"3D"		%read{12,12} %write{2147483647,-1}
+temp	int	$tmp6	%read{13,13} %write{12,12}
+temp	vector	$tmp7	%read{18,18} %write{16,16}
+temp	vector	$tmp8	%read{18,18} %write{17,17}
+temp	float	$tmp9	%read{20,20} %write{19,19}
+code Position_XYZ
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:8
+#         [[ string label = "Position XYZ" ]],
+	assign		Position_XYZ P 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl"} %line{8} %argrw{"wr"}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:19
+#     float w = Position_W * Scale_W;
+	mul		pos Position_XYZ Scale_XYZ 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl"} %line{19} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:20
+#     color result;
+	mul		w Position_W Scale_W 	%line{20} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:22
+#         result = noise("uperlin", pos[0]);
+	eq		$tmp1 Dimensions $const1 	%line{22} %argrw{"wrr"}
+	if		$tmp1 7 16 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:23
+#     } else if (Dimensions == "2D") {
+	compref		$tmp2 pos $const3 	%line{23} %argrw{"wrr"}
+	noise		result $const2 $tmp2 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:24
+#         result = noise("uperlin", pos[0], pos[1]);
+	eq		$tmp3 Dimensions $const4 	%line{24} %argrw{"wrr"}
+	if		$tmp3 12 16 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:25
+#     } else if (Dimensions == "3D") {
+	compref		$tmp4 pos $const3 	%line{25} %argrw{"wrr"}
+	compref		$tmp5 pos $const5 	%argrw{"wrr"}
+	noise		result $const2 $tmp4 $tmp5 	%argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:26
+#         result = noise("uperlin", pos);
+	eq		$tmp6 Dimensions $const6 	%line{26} %argrw{"wrr"}
+	if		$tmp6 15 16 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:27
+#     } else {
+	noise		result $const2 pos 	%line{27} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:29
+#     }
+	noise		result $const2 pos w 	%line{29} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:31
+#     Float = mix(Minimum, Maximum, result[0]);
+	assign		$tmp7 Minimum 	%line{31} %argrw{"wr"}
+	assign		$tmp8 Maximum 	%argrw{"wr"}
+	mix		Color $tmp7 $tmp8 result 	%argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\PerlinNoise.osl:32
+# }
+	compref		$tmp9 result $const3 	%line{32} %argrw{"wrr"}
+	mix		Float Minimum Maximum $tmp9 	%argrw{"wrrr"}
+	end

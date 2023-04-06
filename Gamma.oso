@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmphdgmk2t5.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader Gamma
+param	color	Color	0 0 0		%read{0,0} %write{2147483647,-1}
+param	float	Gamma	1		%read{0,0} %write{2147483647,-1}
+oparam	color	Value	0 0 0		%meta{string,label,"Color"}  %read{2147483647,-1} %write{0,0}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\Gamma.osl:8
+# }
+	pow		Value Color Gamma 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\Gamma.osl"} %line{8} %argrw{"wrr"}
+	end

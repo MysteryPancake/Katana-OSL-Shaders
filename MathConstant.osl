@@ -1,0 +1,36 @@
+shader MathConstant(
+    string Constant = "PI"
+        [[ string widget = "popup",
+        string options = "PI|PI / 2|PI / 4|2 / PI|2 * PI|4 * PI|2 / sqrt(PI)|e|ln(2)|ln(10)|log2(e)|log10(e)|sqrt(2)|sqrt(1 / 2)" ]],
+    output float Value = 0.0
+) {
+    if (Constant == "PI") {
+        Value = M_PI;
+    } else if (Constant == "PI / 2") {
+        Value = M_PI_2;
+    } else if (Constant == "PI / 4") {
+        Value = M_PI_4;
+    } else if (Constant == "2 / PI") {
+        Value = M_2_PI;
+    } else if (Constant == "2 * PI") {
+        Value = M_2PI;
+    } else if (Constant == "4 * PI") {
+        Value = M_4PI;
+    } else if (Constant == "2 / sqrt(PI)") {
+        Value = M_2_SQRTPI;
+    } else if (Constant == "e") {
+        Value = M_E;
+    } else if (Constant == "ln(2)") {
+        Value = M_LN2;
+    } else if (Constant == "ln(10)") {
+        Value = M_LN10;
+    } else if (Constant == "log2(e)") {
+        Value = M_LOG2E;
+    } else if (Constant == "log10(e)") {
+        Value = M_LOG10E;
+    } else if (Constant == "sqrt(2)") {
+        Value = M_SQRT2;
+    } else if (Constant == "sqrt(1 / 2)") {
+        Value = M_SQRT1_2;
+    }
+}

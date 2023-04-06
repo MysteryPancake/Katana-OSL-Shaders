@@ -1,0 +1,13 @@
+shader TransformColor(
+    string From = "rgb"
+        [[ string widget = "mapper",
+        string options = "RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY" ]],
+    string To = "hsv"
+        [[ string widget = "mapper",
+        string options = "RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY" ]],
+    color Color = 0.0,
+    output color Value = 0.0
+        [[ string label = "Color" ]],
+) {
+    Value = transformc(From, To, Color);
+}

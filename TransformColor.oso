@@ -1,0 +1,13 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmp5o54tr4q.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader TransformColor
+param	string	From	"rgb"		%meta{string,widget,"mapper"} %meta{string,options,"RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY"}  %read{0,0} %write{2147483647,-1}
+param	string	To	"hsv"		%meta{string,widget,"mapper"} %meta{string,options,"RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY"}  %read{0,0} %write{2147483647,-1}
+param	color	Color	0 0 0		%read{0,0} %write{2147483647,-1}
+oparam	color	Value	0 0 0		%meta{string,label,"Color"}  %read{2147483647,-1} %write{0,0}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TransformColor.osl:13
+# }
+	transformc	Value From To Color 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TransformColor.osl"} %line{13} %argrw{"wrrr"}
+	end

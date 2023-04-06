@@ -1,0 +1,54 @@
+shader TextureCoordinate(
+    string Coordinate_Space = "object"
+        [[ string widget = "mapper",
+        string options = "Common:common|Object:object|Shader:shader|World:world|Camera:camera|Screen:screen|Raster:raster|NDC:NDC" ]],
+    output point Position = 0.0,
+    output normal Normal = 0.0,
+    output normal Normal_Undistorted = 0.0
+        [[ string label = "Undistorted Normal" ]],
+    output point UV = 0.0,
+    output point UV_Per_Polygon = 0.0
+        [[ string label = "Per Polygon UV" ]],
+    output vector Tangent = 0.0,
+    output normal View_Normal = 0.0
+        [[ string label = "View Normal" ]],
+    output point Ray_Footprint = 0.0
+        [[ string label = "Ray Footprint" ]],
+    output vector Incident = 0.0
+) {
+    // Same as PxrVariable
+    Position = transform(Coordinate_Space, P);
+    Normal = transform(Coordinate_Space, N);
+    Normal_Undistorted = transform(Coordinate_Space, Ng);
+
+    // Construct Blender-style UV coordinates from Renderman's ST coordinates
+    float s = 0.0, t = 0.0;
+    getattribute("s", s);
+    getattribute("t", t);
+    UV[0] = s;
+    UV[1] = t;
+
+    // Renderman's UV coordinates are per triangle for some reason
+    float w = 0.0;
+    UV_Per_Polygon[0] = u;
+    UV_Per_Polygon[1] = v;
+    getattribute("builtin", "w", w);
+    UV_Per_Polygon[2] = w;
+
+    // Tangent, not sure if dPdu or dPdv should be used instead
+    vector tn;
+    getattribute("builtin", "Tn", tn);
+    Tangent = transform(Coordinate_Space, tn);
+
+    // Normalized view, could be good for holograms or perspective stuff?
+    View_Normal = transform(Coordinate_Space, normalize(-I));
+
+    // Seems to find edges, could be good for subsurface?
+    float du = 0.0, dv = 0.0, dw = 0.0;
+    getattribute("builtin", "du", du);
+    getattribute("builtin", "dv", dv);
+    getattribute("builtin", "dw", dw);
+    Ray_Footprint = point(du, dv, dw);
+
+    Incident = transform(Coordinate_Space, I);
+}

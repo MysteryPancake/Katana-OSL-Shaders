@@ -1,0 +1,520 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmp0kvucpss.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader FloatMath
+param	string	Mode	"Add"		%meta{string,widget,"mapper"} %meta{string,options,"Add (X + Y):Add|Subtract (X - Y):Subtract|Multiply (X * Y):Multiply|Divide (X / Y):Divide|Mod (X % Y):Modulo|Min (X, Y):Minimum|Max (X, Y):Maximum|Clamp (X, Y, Z):Clamp|Hypot (X, Y):HypotXY|Hypot (X, Y, Z):HypotXYZ|Abs (X):Abs|Sign (X):Sign|Floor (X):Floor|Ceil (X):Ceil|Round (X):Round|Trunc (X):Trunc|Sqrt (X):Sqrt|InvSqrt (X):InvSqrt|Cbrt (X):Cbrt|Sin (X):Sin|Cos (X):Cos|Tan (X):Tan|Power (X ^ Y):Power|Exp (X):Exp|Exp2 (X):Exp2|Exp-1 (X):Exp-1|Log (X log Y):Logarithm|LogE (X):LogE|Log2 (X):Log2|Log10 (X):Log10|Logb (X):LogB|Acos (X):Acos|Asin (X):Asin|Atan (X):Atan|Atan2 (X):Atan2|Cosh (X):Cosh|Sinh (X):Sinh|Tanh (X):Tanh|Rad2Deg (X):Rad2Deg|Deg2Rad (X):Deg2Rad|Step (X, Y):Step|LinearStep (X, Y, Z):LinearStep|SmoothStep (X, Y, Z):SmoothStep|Select (X, Y, Z):Select"}  %read{0,165} %write{2147483647,-1}
+param	int	Clamp	0		%meta{string,widget,"checkBox"}  %read{168,168} %write{2147483647,-1}
+param	float	X	0		%read{2,167} %write{2147483647,-1}
+param	float	Y	0		%read{2,167} %write{2147483647,-1}
+param	float	Z	0		%read{28,167} %write{2147483647,-1}
+oparam	float	Value	0		%read{170,170} %write{2,171}
+local	float	___274_result	%read{161,161} %write{159,160}
+local	float	___275_xclamped	%read{157,157} %write{156,156}
+const	string	$const1	"Add"		%read{0,0} %write{2147483647,-1}
+temp	int	$tmp1	%read{1,1} %write{0,0}
+const	string	$const2	"Subtract"		%read{3,3} %write{2147483647,-1}
+temp	int	$tmp2	%read{4,4} %write{3,3}
+const	string	$const3	"Multiply"		%read{6,6} %write{2147483647,-1}
+temp	int	$tmp3	%read{7,7} %write{6,6}
+const	string	$const4	"Divide"		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp4	%read{10,10} %write{9,9}
+const	string	$const5	"Modulo"		%read{12,12} %write{2147483647,-1}
+temp	int	$tmp5	%read{13,13} %write{12,12}
+const	string	$const6	"mod"		%read{14,14} %write{2147483647,-1}
+temp	float	$tmp6	%read{17,17} %write{16,16}
+temp	float	$tmp7	%read{16,16} %write{15,15}
+temp	float	$tmp8	%read{18,18} %write{17,17}
+const	string	$const7	"Minimum"		%read{19,19} %write{2147483647,-1}
+temp	int	$tmp9	%read{20,20} %write{19,19}
+const	string	$const8	"Maximum"		%read{22,22} %write{2147483647,-1}
+temp	int	$tmp10	%read{23,23} %write{22,22}
+const	string	$const9	"Clamp"		%read{25,25} %write{2147483647,-1}
+temp	int	$tmp11	%read{26,26} %write{25,25}
+const	string	$const10	"clamp"		%read{27,169} %write{2147483647,-1}
+temp	float	$tmp12	%read{29,29} %write{28,28}
+const	string	$const11	"Mix"		%read{30,30} %write{2147483647,-1}
+temp	int	$tmp13	%read{31,31} %write{30,30}
+const	string	$const12	"HypotXY"		%read{33,33} %write{2147483647,-1}
+temp	int	$tmp14	%read{34,34} %write{33,33}
+const	string	$const13	"hypot"		%read{35,42} %write{2147483647,-1}
+temp	float	$tmp15	%read{38,38} %write{36,36}
+temp	float	$tmp16	%read{38,38} %write{37,37}
+temp	float	$tmp17	%read{39,39} %write{38,38}
+const	string	$const14	"HypotXYZ"		%read{40,40} %write{2147483647,-1}
+temp	int	$tmp18	%read{41,41} %write{40,40}
+temp	float	$tmp19	%read{45,45} %write{43,43}
+temp	float	$tmp20	%read{45,45} %write{44,44}
+temp	float	$tmp21	%read{47,47} %write{45,45}
+temp	float	$tmp22	%read{47,47} %write{46,46}
+temp	float	$tmp23	%read{48,48} %write{47,47}
+const	string	$const15	"Abs"		%read{49,49} %write{2147483647,-1}
+temp	int	$tmp24	%read{50,50} %write{49,49}
+const	string	$const16	"Sign"		%read{52,52} %write{2147483647,-1}
+temp	int	$tmp25	%read{53,53} %write{52,52}
+const	string	$const17	"Floor"		%read{55,55} %write{2147483647,-1}
+temp	int	$tmp26	%read{56,56} %write{55,55}
+const	string	$const18	"Ceil"		%read{58,58} %write{2147483647,-1}
+temp	int	$tmp27	%read{59,59} %write{58,58}
+const	string	$const19	"Round"		%read{61,61} %write{2147483647,-1}
+temp	int	$tmp28	%read{62,62} %write{61,61}
+const	string	$const20	"Trunc"		%read{64,64} %write{2147483647,-1}
+temp	int	$tmp29	%read{65,65} %write{64,64}
+const	string	$const21	"Sqrt"		%read{67,67} %write{2147483647,-1}
+temp	int	$tmp30	%read{68,68} %write{67,67}
+const	string	$const22	"InvSqrt"		%read{70,70} %write{2147483647,-1}
+temp	int	$tmp31	%read{71,71} %write{70,70}
+const	string	$const23	"Cbrt"		%read{73,73} %write{2147483647,-1}
+temp	int	$tmp32	%read{74,74} %write{73,73}
+const	string	$const24	"Sin"		%read{76,76} %write{2147483647,-1}
+temp	int	$tmp33	%read{77,77} %write{76,76}
+const	string	$const25	"Cos"		%read{79,79} %write{2147483647,-1}
+temp	int	$tmp34	%read{80,80} %write{79,79}
+const	string	$const26	"Tan"		%read{82,82} %write{2147483647,-1}
+temp	int	$tmp35	%read{83,83} %write{82,82}
+const	string	$const27	"Power"		%read{85,85} %write{2147483647,-1}
+temp	int	$tmp36	%read{86,86} %write{85,85}
+const	string	$const28	"Exp"		%read{88,88} %write{2147483647,-1}
+temp	int	$tmp37	%read{89,89} %write{88,88}
+const	string	$const29	"Exp2"		%read{91,91} %write{2147483647,-1}
+temp	int	$tmp38	%read{92,92} %write{91,91}
+const	string	$const30	"Exp-1"		%read{94,94} %write{2147483647,-1}
+temp	int	$tmp39	%read{95,95} %write{94,94}
+const	string	$const31	"Logarithm"		%read{97,97} %write{2147483647,-1}
+temp	int	$tmp40	%read{98,98} %write{97,97}
+const	string	$const32	"log"		%read{99,99} %write{2147483647,-1}
+temp	float	$tmp41	%read{102,102} %write{100,100}
+temp	float	$tmp42	%read{102,102} %write{101,101}
+const	string	$const33	"LogE"		%read{103,103} %write{2147483647,-1}
+temp	int	$tmp43	%read{104,104} %write{103,103}
+const	string	$const34	"Log2"		%read{106,106} %write{2147483647,-1}
+temp	int	$tmp44	%read{107,107} %write{106,106}
+const	string	$const35	"Log10"		%read{109,109} %write{2147483647,-1}
+temp	int	$tmp45	%read{110,110} %write{109,109}
+const	string	$const36	"LogB"		%read{112,112} %write{2147483647,-1}
+temp	int	$tmp46	%read{113,113} %write{112,112}
+const	string	$const37	"Acos"		%read{115,115} %write{2147483647,-1}
+temp	int	$tmp47	%read{116,116} %write{115,115}
+const	string	$const38	"Asin"		%read{118,118} %write{2147483647,-1}
+temp	int	$tmp48	%read{119,119} %write{118,118}
+const	string	$const39	"Atan"		%read{121,121} %write{2147483647,-1}
+temp	int	$tmp49	%read{122,122} %write{121,121}
+const	string	$const40	"Atan2"		%read{124,124} %write{2147483647,-1}
+temp	int	$tmp50	%read{125,125} %write{124,124}
+const	string	$const41	"Cosh"		%read{127,127} %write{2147483647,-1}
+temp	int	$tmp51	%read{128,128} %write{127,127}
+const	string	$const42	"Sinh"		%read{130,130} %write{2147483647,-1}
+temp	int	$tmp52	%read{131,131} %write{130,130}
+const	string	$const43	"Tanh"		%read{133,133} %write{2147483647,-1}
+temp	int	$tmp53	%read{134,134} %write{133,133}
+const	string	$const44	"Rad2Deg"		%read{136,136} %write{2147483647,-1}
+temp	int	$tmp54	%read{137,137} %write{136,136}
+const	string	$const45	"degrees"		%read{138,138} %write{2147483647,-1}
+const	float	$const46	180		%read{139,144} %write{2147483647,-1}
+const	float	$const47	3.1415927		%read{139,144} %write{2147483647,-1}
+temp	float	$tmp55	%read{140,140} %write{139,139}
+const	string	$const48	"Deg2Rad"		%read{141,141} %write{2147483647,-1}
+temp	int	$tmp56	%read{142,142} %write{141,141}
+const	string	$const49	"radians"		%read{143,143} %write{2147483647,-1}
+temp	float	$tmp57	%read{145,145} %write{144,144}
+const	string	$const50	"Step"		%read{146,146} %write{2147483647,-1}
+temp	int	$tmp58	%read{147,147} %write{146,146}
+const	string	$const51	"LinearStep"		%read{149,149} %write{2147483647,-1}
+temp	int	$tmp59	%read{150,150} %write{149,149}
+const	string	$const52	"linearstep"		%read{151,151} %write{2147483647,-1}
+temp	int	$tmp60	%read{153,153} %write{152,152}
+temp	float	$tmp61	%read{156,156} %write{155,155}
+temp	float	$tmp62	%read{159,159} %write{157,157}
+temp	float	$tmp63	%read{159,159} %write{158,158}
+const	string	$const53	"SmoothStep"		%read{162,162} %write{2147483647,-1}
+temp	int	$tmp64	%read{163,163} %write{162,162}
+const	string	$const54	"Select"		%read{165,165} %write{2147483647,-1}
+temp	int	$tmp65	%read{166,166} %write{165,165}
+const	float	$const55	0		%read{171,171} %write{2147483647,-1}
+const	float	$const56	1		%read{170,170} %write{2147483647,-1}
+temp	float	$tmp66	%read{171,171} %write{170,170}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:13
+#         Value = X + Y;
+	eq		$tmp1 Mode $const1 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{13} %argrw{"wrr"}
+	if		$tmp1 3 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:14
+#     } else if (Mode == "Subtract") {
+	add		Value X Y 	%line{14} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:15
+#         Value = X - Y;
+	eq		$tmp2 Mode $const2 	%line{15} %argrw{"wrr"}
+	if		$tmp2 6 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:16
+#     } else if (Mode == "Multiply") {
+	sub		Value X Y 	%line{16} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:17
+#         Value = X * Y;
+	eq		$tmp3 Mode $const3 	%line{17} %argrw{"wrr"}
+	if		$tmp3 9 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:18
+#     } else if (Mode == "Divide") {
+	mul		Value X Y 	%line{18} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:19
+#         Value = X / Y;
+	eq		$tmp4 Mode $const4 	%line{19} %argrw{"wrr"}
+	if		$tmp4 12 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:20
+#     } else if (Mode == "Modulo") {
+	div		Value X Y 	%line{20} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:21
+#         Value = mod(X, Y);
+	eq		$tmp5 Mode $const5 	%line{21} %argrw{"wrr"}
+	if		$tmp5 19 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:22
+#     } else if (Mode == "Minimum") {
+	functioncall	$const6 19 	%line{22} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:132
+# float  mod (float  a, float  b) { return a - b*floor(a/b); }
+	div		$tmp7 X Y 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{132} %argrw{"wrr"}
+	floor		$tmp6 $tmp7 	%argrw{"wr"}
+	mul		$tmp8 Y $tmp6 	%argrw{"wrr"}
+	sub		Value X $tmp8 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:23
+#         Value = min(X, Y);
+	eq		$tmp9 Mode $const7 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{23} %argrw{"wrr"}
+	if		$tmp9 22 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:24
+#     } else if (Mode == "Maximum") {
+	min		Value X Y 	%line{24} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:25
+#         Value = max(X, Y);
+	eq		$tmp10 Mode $const8 	%line{25} %argrw{"wrr"}
+	if		$tmp10 25 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:26
+#     } else if (Mode == "Clamp") {
+	max		Value X Y 	%line{26} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:27
+#         Value = clamp(X, Y, Z);
+	eq		$tmp11 Mode $const9 	%line{27} %argrw{"wrr"}
+	if		$tmp11 30 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:28
+#     } else if (Mode == "Mix") {
+	functioncall	$const10 30 	%line{28} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:141
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp12 X Z 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{141} %argrw{"wrr"}
+	max		Value $tmp12 Y 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:29
+#         Value = mix(X, Y, Z);
+	eq		$tmp13 Mode $const11 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{29} %argrw{"wrr"}
+	if		$tmp13 33 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:30
+#     } else if (Mode == "HypotXY") {
+	mix		Value X Y Z 	%line{30} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:31
+#         Value = hypot(X, Y);
+	eq		$tmp14 Mode $const12 	%line{31} %argrw{"wrr"}
+	if		$tmp14 40 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:32
+#     } else if (Mode == "HypotXYZ") {
+	functioncall	$const13 40 	%line{32} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:101
+# float hypot (float a, float b) { return sqrt (a*a + b*b); }
+	mul		$tmp15 X X 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{101} %argrw{"wrr"}
+	mul		$tmp16 Y Y 	%argrw{"wrr"}
+	add		$tmp17 $tmp15 $tmp16 	%argrw{"wrr"}
+	sqrt		Value $tmp17 	%argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:33
+#         Value = hypot(X, Y, Z);
+	eq		$tmp18 Mode $const14 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{33} %argrw{"wrr"}
+	if		$tmp18 49 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:34
+#     } else if (Mode == "Abs") {
+	functioncall	$const13 49 	%line{34} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:102
+# float hypot (float a, float b, float c) { return sqrt (a*a + b*b + c*c); }
+	mul		$tmp19 X X 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{102} %argrw{"wrr"}
+	mul		$tmp20 Y Y 	%argrw{"wrr"}
+	add		$tmp21 $tmp19 $tmp20 	%argrw{"wrr"}
+	mul		$tmp22 Z Z 	%argrw{"wrr"}
+	add		$tmp23 $tmp21 $tmp22 	%argrw{"wrr"}
+	sqrt		Value $tmp23 	%argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:35
+#         Value = abs(X);
+	eq		$tmp24 Mode $const15 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{35} %argrw{"wrr"}
+	if		$tmp24 52 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:36
+#     } else if (Mode == "Sign") {
+	abs		Value X 	%line{36} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:37
+#         Value = sign(X);
+	eq		$tmp25 Mode $const16 	%line{37} %argrw{"wrr"}
+	if		$tmp25 55 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:38
+#     } else if (Mode == "Floor") {
+	sign		Value X 	%line{38} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:39
+#         Value = floor(X);
+	eq		$tmp26 Mode $const17 	%line{39} %argrw{"wrr"}
+	if		$tmp26 58 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:40
+#     } else if (Mode == "Ceil") {
+	floor		Value X 	%line{40} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:41
+#         Value = ceil(X);
+	eq		$tmp27 Mode $const18 	%line{41} %argrw{"wrr"}
+	if		$tmp27 61 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:42
+#     } else if (Mode == "Round") {
+	ceil		Value X 	%line{42} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:43
+#         Value = round(X);
+	eq		$tmp28 Mode $const19 	%line{43} %argrw{"wrr"}
+	if		$tmp28 64 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:44
+#     } else if (Mode == "Trunc") {
+	round		Value X 	%line{44} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:45
+#         Value = trunc(X);
+	eq		$tmp29 Mode $const20 	%line{45} %argrw{"wrr"}
+	if		$tmp29 67 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:46
+#     } else if (Mode == "Sqrt") {
+	trunc		Value X 	%line{46} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:47
+#         Value = sqrt(X);
+	eq		$tmp30 Mode $const21 	%line{47} %argrw{"wrr"}
+	if		$tmp30 70 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:48
+#     } else if (Mode == "InvSqrt") {
+	sqrt		Value X 	%line{48} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:49
+#         Value = inversesqrt(X);
+	eq		$tmp31 Mode $const22 	%line{49} %argrw{"wrr"}
+	if		$tmp31 73 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:50
+#     } else if (Mode == "Cbrt") {
+	inversesqrt	Value X 	%line{50} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:51
+#         Value = cbrt(X);
+	eq		$tmp32 Mode $const23 	%line{51} %argrw{"wrr"}
+	if		$tmp32 76 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:52
+#     } else if (Mode == "Sin") {
+	cbrt		Value X 	%line{52} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:53
+#         Value = sin(X);
+	eq		$tmp33 Mode $const24 	%line{53} %argrw{"wrr"}
+	if		$tmp33 79 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:54
+#     } else if (Mode == "Cos") {
+	sin		Value X 	%line{54} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:55
+#         Value = cos(X);
+	eq		$tmp34 Mode $const25 	%line{55} %argrw{"wrr"}
+	if		$tmp34 82 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:56
+#     } else if (Mode == "Tan") {
+	cos		Value X 	%line{56} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:57
+#         Value = tan(X);
+	eq		$tmp35 Mode $const26 	%line{57} %argrw{"wrr"}
+	if		$tmp35 85 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:58
+#     } else if (Mode == "Power") {
+	tan		Value X 	%line{58} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:59
+#         Value = pow(X, Y);
+	eq		$tmp36 Mode $const27 	%line{59} %argrw{"wrr"}
+	if		$tmp36 88 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:60
+#     } else if (Mode == "Exp") {
+	pow		Value X Y 	%line{60} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:61
+#         Value = exp(X);
+	eq		$tmp37 Mode $const28 	%line{61} %argrw{"wrr"}
+	if		$tmp37 91 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:62
+#     } else if (Mode == "Exp2") {
+	exp		Value X 	%line{62} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:63
+#         Value = exp2(X);
+	eq		$tmp38 Mode $const29 	%line{63} %argrw{"wrr"}
+	if		$tmp38 94 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:64
+#     } else if (Mode == "Exp-1") {
+	exp2		Value X 	%line{64} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:65
+#         Value = expm1(X);
+	eq		$tmp39 Mode $const30 	%line{65} %argrw{"wrr"}
+	if		$tmp39 97 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:66
+#     } else if (Mode == "Logarithm") {
+	expm1		Value X 	%line{66} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:67
+#         Value = log(X, Y);
+	eq		$tmp40 Mode $const31 	%line{67} %argrw{"wrr"}
+	if		$tmp40 103 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:68
+#     } else if (Mode == "LogE") {
+	functioncall	$const32 103 	%line{68} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:94
+# float  log (float a,  float b) { return log(a)/log(b); }
+	log		$tmp41 X 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{94} %argrw{"wr"}
+	log		$tmp42 Y 	%argrw{"wr"}
+	div		Value $tmp41 $tmp42 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:69
+#         Value = log(X);
+	eq		$tmp43 Mode $const33 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{69} %argrw{"wrr"}
+	if		$tmp43 106 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:70
+#     } else if (Mode == "Log2") {
+	log		Value X 	%line{70} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:71
+#         Value = log2(X);
+	eq		$tmp44 Mode $const34 	%line{71} %argrw{"wrr"}
+	if		$tmp44 109 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:72
+#     } else if (Mode == "Log10") {
+	log2		Value X 	%line{72} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:73
+#         Value = log10(X);
+	eq		$tmp45 Mode $const35 	%line{73} %argrw{"wrr"}
+	if		$tmp45 112 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:74
+#     } else if (Mode == "LogB") {
+	log10		Value X 	%line{74} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:75
+#         Value = logb(X);
+	eq		$tmp46 Mode $const36 	%line{75} %argrw{"wrr"}
+	if		$tmp46 115 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:76
+#     } else if (Mode == "Acos") {
+	logb		Value X 	%line{76} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:77
+#         Value = acos(X);
+	eq		$tmp47 Mode $const37 	%line{77} %argrw{"wrr"}
+	if		$tmp47 118 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:78
+#     } else if (Mode == "Asin") {
+	acos		Value X 	%line{78} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:79
+#         Value = asin(X);
+	eq		$tmp48 Mode $const38 	%line{79} %argrw{"wrr"}
+	if		$tmp48 121 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:80
+#     } else if (Mode == "Atan") {
+	asin		Value X 	%line{80} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:81
+#         Value = atan(X);
+	eq		$tmp49 Mode $const39 	%line{81} %argrw{"wrr"}
+	if		$tmp49 124 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:82
+#     } else if (Mode == "Atan2") {
+	atan		Value X 	%line{82} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:83
+#         Value = atan2(X, Y);
+	eq		$tmp50 Mode $const40 	%line{83} %argrw{"wrr"}
+	if		$tmp50 127 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:84
+#     } else if (Mode == "Cosh") {
+	atan2		Value X Y 	%line{84} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:85
+#         Value = cosh(X);
+	eq		$tmp51 Mode $const41 	%line{85} %argrw{"wrr"}
+	if		$tmp51 130 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:86
+#     } else if (Mode == "Sinh") {
+	cosh		Value X 	%line{86} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:87
+#         Value = sinh(X);
+	eq		$tmp52 Mode $const42 	%line{87} %argrw{"wrr"}
+	if		$tmp52 133 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:88
+#     } else if (Mode == "Tanh") {
+	sinh		Value X 	%line{88} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:89
+#         Value = tanh(X);
+	eq		$tmp53 Mode $const43 	%line{89} %argrw{"wrr"}
+	if		$tmp53 136 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:90
+#     } else if (Mode == "Rad2Deg") {
+	tanh		Value X 	%line{90} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:91
+#         Value = degrees(X);
+	eq		$tmp54 Mode $const44 	%line{91} %argrw{"wrr"}
+	if		$tmp54 141 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:92
+#     } else if (Mode == "Deg2Rad") {
+	functioncall	$const45 141 	%line{92} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:60
+# float  degrees (float x)  { return x*(180.0/M_PI); }
+	div		$tmp55 $const46 $const47 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{60} %argrw{"wrr"}
+	mul		Value X $tmp55 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:93
+#         Value = radians(X);
+	eq		$tmp56 Mode $const48 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{93} %argrw{"wrr"}
+	if		$tmp56 146 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:94
+#     } else if (Mode == "Step") {
+	functioncall	$const49 146 	%line{94} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:65
+# float  radians (float x)  { return x*(M_PI/180.0); }
+	div		$tmp57 $const47 $const46 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{65} %argrw{"wrr"}
+	mul		Value X $tmp57 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:95
+#         Value = step(X, Y);
+	eq		$tmp58 Mode $const50 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{95} %argrw{"wrr"}
+	if		$tmp58 149 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:96
+#     } else if (Mode == "LinearStep") {
+	step		Value X Y 	%line{96} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:97
+#         Value = linearstep(X, Y, Z);
+	eq		$tmp59 Mode $const51 	%line{97} %argrw{"wrr"}
+	if		$tmp59 162 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:98
+#     } else if (Mode == "SmoothStep") {
+	functioncall	$const52 162 	%line{98} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:339
+#     if (edge0 != edge1) {
+	neq		$tmp60 X Y 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{339} %argrw{"wrr"}
+	if		$tmp60 160 161 	%argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:340
+#         float xclamped = clamp (x, edge0, edge1);
+	functioncall	$const10 157 	%line{340} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:141
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp61 Z Y 	%line{141} %argrw{"wrr"}
+	max		___275_xclamped $tmp61 X 	%argrw{"wrr"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:341
+#         result = (xclamped - edge0) / (edge1 - edge0);
+	sub		$tmp62 ___275_xclamped X 	%line{341} %argrw{"wrr"}
+	sub		$tmp63 Y X 	%argrw{"wrr"}
+	div		___274_result $tmp62 $tmp63 	%argrw{"wrr"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:343
+#         result = step (edge0, x);
+	step		___274_result X Z 	%line{343} %argrw{"wrr"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:345
+#     return result;
+	assign		Value ___274_result 	%line{345} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:99
+#         Value = smoothstep(X, Y, Z);
+	eq		$tmp64 Mode $const53 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl"} %line{99} %argrw{"wrr"}
+	if		$tmp64 165 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:100
+#     } else if (Mode == "Select") {
+	smoothstep	Value X Y Z 	%line{100} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:101
+#         Value = select(X, Y, Z);
+	eq		$tmp65 Mode $const54 	%line{101} %argrw{"wrr"}
+	if		$tmp65 168 168 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:102
+#     }
+	select		Value X Y Z 	%line{102} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:104
+#         Value = clamp(Value, 0.0, 1.0);
+	if		Clamp 172 172 	%line{104} %argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\FloatMath.osl:105
+#     }
+	functioncall	$const10 172 	%line{105} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:141
+# float  clamp (float x, float minval, float maxval) { return max(min(x,maxval),minval); }
+	min		$tmp66 Value $const56 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{141} %argrw{"wrr"}
+	max		Value $tmp66 $const55 	%argrw{"wrr"}
+	end

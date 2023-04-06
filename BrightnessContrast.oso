@@ -1,0 +1,31 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmp678jx1wo.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader BrightnessContrast
+param	color	Color	0 0 0		%read{1,1} %write{2147483647,-1}
+param	float	Brightness	0		%read{3,3} %write{2147483647,-1}
+param	float	Contrast	0		%read{0,2} %write{2147483647,-1}
+param	int	Clamp	1		%meta{string,label,"Clamp Positive"} %meta{string,widget,"checkBox"}  %read{5,5} %write{2147483647,-1}
+oparam	color	Value	0 0 0		%meta{string,label,"Color"}  %read{6,6} %write{4,6}
+const	float	$const1	1		%read{0,0} %write{2147483647,-1}
+temp	float	$tmp1	%read{1,1} %write{0,0}
+temp	color	$tmp2	%read{4,4} %write{1,1}
+const	float	$const2	0.5		%read{2,2} %write{2147483647,-1}
+temp	float	$tmp3	%read{3,3} %write{2,2}
+temp	float	$tmp4	%read{4,4} %write{3,3}
+const	vector	$const3	0 0 0		%read{6,6} %write{2147483647,-1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\BrightnessContrast.osl:11
+#     if (Clamp) {
+	add		$tmp1 $const1 Contrast 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\BrightnessContrast.osl"} %line{11} %argrw{"wrr"}
+	mul		$tmp2 $tmp1 Color 	%argrw{"wrr"}
+	mul		$tmp3 Contrast $const2 	%argrw{"wrr"}
+	sub		$tmp4 Brightness $tmp3 	%argrw{"wrr"}
+	add		Value $tmp2 $tmp4 	%argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\BrightnessContrast.osl:12
+#         Value = max(vector(0.0), Value);
+	if		Clamp 7 7 	%line{12} %argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\BrightnessContrast.osl:13
+#     }
+	max		Value $const3 Value 	%line{13} %argrw{"wrr"}
+	end

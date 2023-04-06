@@ -1,0 +1,32 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpm5lsur20.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader SeparateColor
+param	string	Mode	"rgb"		%meta{string,widget,"mapper"} %meta{string,options,"RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY"}  %read{1,1} %write{2147483647,-1}
+param	color	Color	0 0 0		%read{1,1} %write{2147483647,-1}
+oparam	float	Red	0		%read{2147483647,-1} %write{2,2}
+oparam	float	Green	0		%read{2147483647,-1} %write{3,3}
+oparam	float	Blue	0		%read{2147483647,-1} %write{4,4}
+local	color	col	%read{2,4} %write{1,1}
+const	string	$const1	"transformc"		%read{0,0} %write{2147483647,-1}
+const	string	$const2	"rgb"		%read{1,1} %write{2147483647,-1}
+const	int	$const3	0		%read{2,2} %write{2147483647,-1}
+const	int	$const4	1		%read{3,3} %write{2147483647,-1}
+const	int	$const5	2		%read{4,4} %write{2147483647,-1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl:12
+#     Red = col[0];
+	functioncall	$const1 2 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl"} %line{12} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:304
+# color transformc (string to, color c) { return transformc ("rgb", to, c); }
+	transformc	col $const2 Mode Color 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{304} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl:13
+#     Green = col[1];
+	compref		Red col $const3 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl"} %line{13} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl:14
+#     Blue = col[2];
+	compref		Green col $const4 	%line{14} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\SeparateColor.osl:15
+# }
+	compref		Blue col $const5 	%line{15} %argrw{"wrr"}
+	end

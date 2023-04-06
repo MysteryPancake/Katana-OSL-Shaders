@@ -1,0 +1,9 @@
+shader StringToNumber(
+    string String = "0.0",
+    output int Integer = 0,
+    output float Float = 0.0
+) {
+    // C-style typecasts
+    Integer = stoi(String);
+    Float = stof(String);
+}

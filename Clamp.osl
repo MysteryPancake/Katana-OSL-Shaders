@@ -1,0 +1,9 @@
+shader Clamp(
+    color Color = 0.0,
+    color Minimum = 0.0,
+    color Maximum = 1.0,
+    output color Value = 0.0
+        [[ string label = "Color" ]]
+) {
+    Value = clamp(Color, Minimum, Maximum);
+}

@@ -1,0 +1,12 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpb3tn7y45.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader NumberToString
+param	float	Number	0		%read{0,0} %write{2147483647,-1}
+oparam	string	String	"0.0"		%read{2147483647,-1} %write{0,0}
+const	string	$const1	"%f"		%read{0,0} %write{2147483647,-1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\NumberToString.osl:7
+# }
+	format		String $const1 Number 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\NumberToString.osl"} %line{7} %argrw{"wrr"}
+	end

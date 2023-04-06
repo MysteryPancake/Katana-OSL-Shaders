@@ -1,0 +1,7 @@
+shader NumberToString(
+    float Number = 0.0,
+    output string String = "0.0",
+) {
+    // C-style typecast
+    String = format("%f", Number);
+}

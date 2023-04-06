@@ -1,0 +1,32 @@
+shader SimplexNoise(
+    string Dimensions = "4D"
+        [[ string widget = "mapper",
+        string options = "1D (X):1D|2D (X, Y):2D|3D (X, Y, Z):3D|4D (X, Y, Z, W):4D" ]],
+    float Minimum = 0.0,
+    float Maximum = 1.0,
+    point Position_XYZ = P
+        [[ string label = "Position XYZ" ]],
+    float Position_W = 0.0
+        [[ string label = "Position W" ]],
+    vector Scale_XYZ = 1.0
+        [[ string label = "Scale XYZ" ]],
+    float Scale_W = 1.0
+        [[ string label = "Scale W" ]],
+    output color Color = 0.0,
+    output float Float = 0.0
+) {
+    point pos = Position_XYZ * Scale_XYZ;
+    float w = Position_W * Scale_W;
+    color result;
+    if (Dimensions == "1D") {
+        result = noise("usimplex", pos[0]);
+    } else if (Dimensions == "2D") {
+        result = noise("usimplex", pos[0], pos[1]);
+    } else if (Dimensions == "3D") {
+        result = noise("usimplex", pos);
+    } else {
+        result = noise("usimplex", pos, w);
+    }
+    Color = mix(vector(Minimum), vector(Maximum), result);
+    Float = mix(Minimum, Maximum, result[0]);
+}

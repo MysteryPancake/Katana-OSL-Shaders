@@ -1,0 +1,15 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpfr6t3buu.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader StringToNumber
+param	string	String	"0.0"		%read{0,1} %write{2147483647,-1}
+oparam	int	Integer	0		%read{2147483647,-1} %write{0,0}
+oparam	float	Float	0		%read{2147483647,-1} %write{1,1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\StringToNumber.osl:8
+#     Float = stof(String);
+	stoi		Integer String 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\StringToNumber.osl"} %line{8} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\StringToNumber.osl:9
+# }
+	stof		Float String 	%line{9} %argrw{"wr"}
+	end

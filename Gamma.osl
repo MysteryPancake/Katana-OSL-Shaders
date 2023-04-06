@@ -1,0 +1,8 @@
+shader Gamma(
+    color Color = 0.0,
+    float Gamma = 1.0,
+    output color Value = 0.0
+        [[ string label = "Color" ]]
+) {
+    Value = pow(Color, Gamma);
+}

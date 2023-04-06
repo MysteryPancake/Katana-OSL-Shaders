@@ -1,0 +1,14 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpohkq5ses.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader CombineColor
+param	string	Mode	"rgb"		%meta{string,widget,"mapper"} %meta{string,options,"RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY"}  %read{0,0} %write{2147483647,-1}
+param	float	Red	0		%read{0,0} %write{2147483647,-1}
+param	float	Green	0		%read{0,0} %write{2147483647,-1}
+param	float	Blue	0		%read{0,0} %write{2147483647,-1}
+oparam	color	Color	0 0 0		%read{2147483647,-1} %write{0,0}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\CombineColor.osl:11
+# }
+	color		Color Mode Red Green Blue 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\CombineColor.osl"} %line{11} %argrw{"wrrrr"}
+	end

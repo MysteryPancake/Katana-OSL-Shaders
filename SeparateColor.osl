@@ -1,0 +1,15 @@
+shader SeparateColor(
+    string Mode = "rgb"
+        [[ string widget = "mapper",
+        string options = "RGB:rgb|HSV:hsv|HSL:hsl|YIQ:YIQ|XYZ:XYZ|xyY:xyY" ]],
+    color Color = 0.0,
+    output float Red = 0.0,
+    output float Green = 0.0,
+    output float Blue = 0.0,
+) {
+    color col;
+    col = transformc(Mode, Color);
+    Red = col[0];
+    Green = col[1];
+    Blue = col[2];
+}

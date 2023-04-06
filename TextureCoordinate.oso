@@ -1,0 +1,141 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpb1yf75w5.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader TextureCoordinate
+param	string	Coordinate_Space	"object"		%meta{string,widget,"mapper"} %meta{string,options,"Common:common|Object:object|Shader:shader|World:world|Camera:camera|Screen:screen|Raster:raster|NDC:NDC"}  %read{1,32} %write{2147483647,-1}
+oparam	point	Position	0 0 0		%read{2147483647,-1} %write{1,1}
+oparam	normal	Normal	0 0 0		%read{2147483647,-1} %write{3,3}
+oparam	normal	Normal_Undistorted	0 0 0		%meta{string,label,"Undistorted Normal"}  %read{2147483647,-1} %write{5,5}
+oparam	point	UV	0 0 0		%read{2147483647,-1} %write{10,11}
+oparam	point	UV_Per_Polygon	0 0 0		%meta{string,label,"Per Polygon UV"}  %read{2147483647,-1} %write{13,16}
+oparam	vector	Tangent	0 0 0		%read{2147483647,-1} %write{19,19}
+oparam	normal	View_Normal	0 0 0		%meta{string,label,"View Normal"}  %read{2147483647,-1} %write{23,23}
+oparam	point	Ray_Footprint	0 0 0		%meta{string,label,"Ray Footprint"}  %read{2147483647,-1} %write{30,30}
+oparam	vector	Incident	0 0 0		%read{2147483647,-1} %write{32,32}
+global	point	P	%read{1,1} %write{2147483647,-1}
+global	vector	I	%read{20,32} %write{2147483647,-1}
+global	normal	N	%read{3,3} %write{2147483647,-1}
+global	normal	Ng	%read{5,5} %write{2147483647,-1}
+global	float	u	%read{13,13} %write{2147483647,-1}
+global	float	v	%read{14,14} %write{2147483647,-1}
+local	float	s	%read{10,10} %write{6,8}
+local	float	t	%read{11,11} %write{7,9}
+local	float	w	%read{16,16} %write{12,15}
+local	vector	tn	%read{19,19} %write{17,17}
+local	float	du	%read{30,30} %write{24,27}
+local	float	dv	%read{30,30} %write{25,28}
+local	float	dw	%read{30,30} %write{26,29}
+const	string	$const1	"transform"		%read{0,31} %write{2147483647,-1}
+const	string	$const2	"common"		%read{1,32} %write{2147483647,-1}
+const	float	$const3	0		%read{6,26} %write{2147483647,-1}
+temp	int	$tmp1	%read{2147483647,-1} %write{8,8}
+const	string	$const4	"s"		%read{8,8} %write{2147483647,-1}
+temp	int	$tmp2	%read{2147483647,-1} %write{9,9}
+const	string	$const5	"t"		%read{9,9} %write{2147483647,-1}
+const	int	$const6	0		%read{10,13} %write{2147483647,-1}
+const	int	$const7	1		%read{11,14} %write{2147483647,-1}
+temp	int	$tmp3	%read{2147483647,-1} %write{15,15}
+const	string	$const8	"builtin"		%read{15,29} %write{2147483647,-1}
+const	string	$const9	"w"		%read{15,15} %write{2147483647,-1}
+const	int	$const10	2		%read{16,16} %write{2147483647,-1}
+temp	int	$tmp4	%read{2147483647,-1} %write{17,17}
+const	string	$const11	"Tn"		%read{17,17} %write{2147483647,-1}
+temp	vector	$tmp5	%read{23,23} %write{21,21}
+temp	vector	$tmp6	%read{21,21} %write{20,20}
+temp	int	$tmp7	%read{2147483647,-1} %write{27,27}
+const	string	$const12	"du"		%read{27,27} %write{2147483647,-1}
+temp	int	$tmp8	%read{2147483647,-1} %write{28,28}
+const	string	$const13	"dv"		%read{28,28} %write{2147483647,-1}
+temp	int	$tmp9	%read{2147483647,-1} %write{29,29}
+const	string	$const14	"dw"		%read{29,29} %write{2147483647,-1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:21
+#     Normal = transform(Coordinate_Space, N);
+	functioncall	$const1 2 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{21} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:263
+# point  transform (string to, point p)  { return transform("common",to,p); }
+	transform	Position $const2 Coordinate_Space P 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{263} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:22
+#     Normal_Undistorted = transform(Coordinate_Space, Ng);
+	functioncall	$const1 4 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{22} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:261
+# normal transform (string to, normal p) { return transform("common",to,p); }
+	transformn	Normal $const2 Coordinate_Space N 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{261} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:23
+# 
+	functioncall	$const1 6 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{23} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:261
+# normal transform (string to, normal p) { return transform("common",to,p); }
+	transformn	Normal_Undistorted $const2 Coordinate_Space Ng 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{261} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:26
+#     getattribute("s", s);
+	assign		s $const3 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{26} %argrw{"wr"}
+	assign		t $const3 	%argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:27
+#     getattribute("t", t);
+	getattribute	$tmp1 $const4 s 	%line{27} %argrw{"wrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:28
+#     UV[0] = s;
+	getattribute	$tmp2 $const5 t 	%line{28} %argrw{"wrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:29
+#     UV[1] = t;
+	compassign	UV $const6 s 	%line{29} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:30
+# 
+	compassign	UV $const7 t 	%line{30} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:33
+#     UV_Per_Polygon[0] = u;
+	assign		w $const3 	%line{33} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:34
+#     UV_Per_Polygon[1] = v;
+	compassign	UV_Per_Polygon $const6 u 	%line{34} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:35
+#     getattribute("builtin", "w", w);
+	compassign	UV_Per_Polygon $const7 v 	%line{35} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:36
+#     UV_Per_Polygon[2] = w;
+	getattribute	$tmp3 $const8 $const9 w 	%line{36} %argrw{"wrrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:37
+# 
+	compassign	UV_Per_Polygon $const10 w 	%line{37} %argrw{"wrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:41
+#     Tangent = transform(Coordinate_Space, tn);
+	getattribute	$tmp4 $const8 $const11 tn 	%line{41} %argrw{"wrrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:42
+# 
+	functioncall	$const1 20 	%line{42} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:262
+# vector transform (string to, vector p) { return transform("common",to,p); }
+	transformv	Tangent $const2 Coordinate_Space tn 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{262} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:45
+# 
+	neg		$tmp6 I 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{45} %argrw{"wr"}
+	normalize	$tmp5 $tmp6 	%argrw{"wr"}
+	functioncall	$const1 24 	%argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:262
+# vector transform (string to, vector p) { return transform("common",to,p); }
+	transformv	View_Normal $const2 Coordinate_Space $tmp5 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{262} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:48
+#     getattribute("builtin", "du", du);
+	assign		du $const3 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl"} %line{48} %argrw{"wr"}
+	assign		dv $const3 	%argrw{"wr"}
+	assign		dw $const3 	%argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:49
+#     getattribute("builtin", "dv", dv);
+	getattribute	$tmp7 $const8 $const12 du 	%line{49} %argrw{"wrrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:50
+#     getattribute("builtin", "dw", dw);
+	getattribute	$tmp8 $const8 $const13 dv 	%line{50} %argrw{"wrrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:51
+#     Ray_Footprint = point(du, dv, dw);
+	getattribute	$tmp9 $const8 $const14 dw 	%line{51} %argrw{"wrrw"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:52
+# 
+	point		Ray_Footprint du dv dw 	%line{52} %argrw{"wrrr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\TextureCoordinate.osl:54
+# }
+	functioncall	$const1 33 	%line{54} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:262
+# vector transform (string to, vector p) { return transform("common",to,p); }
+	transformv	Incident $const2 Coordinate_Space I 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{262} %argrw{"wrrr"}
+	end

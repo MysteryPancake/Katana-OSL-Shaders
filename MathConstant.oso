@@ -1,0 +1,148 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpllv4lcy6.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader MathConstant
+param	string	Constant	"PI"		%meta{string,widget,"popup"} %meta{string,options,"PI|PI / 2|PI / 4|2 / PI|2 * PI|4 * PI|2 / sqrt(PI)|e|ln(2)|ln(10)|log2(e)|log10(e)|sqrt(2)|sqrt(1 / 2)"}  %read{0,39} %write{2147483647,-1}
+oparam	float	Value	0		%read{2147483647,-1} %write{2,41}
+const	string	$const1	"PI"		%read{0,0} %write{2147483647,-1}
+temp	int	$tmp1	%read{1,1} %write{0,0}
+const	float	$const2	3.1415927		%read{2,2} %write{2147483647,-1}
+const	string	$const3	"PI / 2"		%read{3,3} %write{2147483647,-1}
+temp	int	$tmp2	%read{4,4} %write{3,3}
+const	float	$const4	1.5707964		%read{5,5} %write{2147483647,-1}
+const	string	$const5	"PI / 4"		%read{6,6} %write{2147483647,-1}
+temp	int	$tmp3	%read{7,7} %write{6,6}
+const	float	$const6	0.7853982		%read{8,8} %write{2147483647,-1}
+const	string	$const7	"2 / PI"		%read{9,9} %write{2147483647,-1}
+temp	int	$tmp4	%read{10,10} %write{9,9}
+const	float	$const8	0.63661975		%read{11,11} %write{2147483647,-1}
+const	string	$const9	"2 * PI"		%read{12,12} %write{2147483647,-1}
+temp	int	$tmp5	%read{13,13} %write{12,12}
+const	float	$const10	6.2831855		%read{14,14} %write{2147483647,-1}
+const	string	$const11	"4 * PI"		%read{15,15} %write{2147483647,-1}
+temp	int	$tmp6	%read{16,16} %write{15,15}
+const	float	$const12	12.566371		%read{17,17} %write{2147483647,-1}
+const	string	$const13	"2 / sqrt(PI)"		%read{18,18} %write{2147483647,-1}
+temp	int	$tmp7	%read{19,19} %write{18,18}
+const	float	$const14	1.1283792		%read{20,20} %write{2147483647,-1}
+const	string	$const15	"e"		%read{21,21} %write{2147483647,-1}
+temp	int	$tmp8	%read{22,22} %write{21,21}
+const	float	$const16	2.7182817		%read{23,23} %write{2147483647,-1}
+const	string	$const17	"ln(2)"		%read{24,24} %write{2147483647,-1}
+temp	int	$tmp9	%read{25,25} %write{24,24}
+const	float	$const18	0.6931472		%read{26,26} %write{2147483647,-1}
+const	string	$const19	"ln(10)"		%read{27,27} %write{2147483647,-1}
+temp	int	$tmp10	%read{28,28} %write{27,27}
+const	float	$const20	2.3025851		%read{29,29} %write{2147483647,-1}
+const	string	$const21	"log2(e)"		%read{30,30} %write{2147483647,-1}
+temp	int	$tmp11	%read{31,31} %write{30,30}
+const	float	$const22	1.442695		%read{32,32} %write{2147483647,-1}
+const	string	$const23	"log10(e)"		%read{33,33} %write{2147483647,-1}
+temp	int	$tmp12	%read{34,34} %write{33,33}
+const	float	$const24	0.4342945		%read{35,35} %write{2147483647,-1}
+const	string	$const25	"sqrt(2)"		%read{36,36} %write{2147483647,-1}
+temp	int	$tmp13	%read{37,37} %write{36,36}
+const	float	$const26	1.4142135		%read{38,38} %write{2147483647,-1}
+const	string	$const27	"sqrt(1 / 2)"		%read{39,39} %write{2147483647,-1}
+temp	int	$tmp14	%read{40,40} %write{39,39}
+const	float	$const28	0.70710677		%read{41,41} %write{2147483647,-1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:8
+#         Value = M_PI;
+	eq		$tmp1 Constant $const1 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl"} %line{8} %argrw{"wrr"}
+	if		$tmp1 3 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:9
+#     } else if (Constant == "PI / 2") {
+	assign		Value $const2 	%line{9} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:10
+#         Value = M_PI_2;
+	eq		$tmp2 Constant $const3 	%line{10} %argrw{"wrr"}
+	if		$tmp2 6 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:11
+#     } else if (Constant == "PI / 4") {
+	assign		Value $const4 	%line{11} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:12
+#         Value = M_PI_4;
+	eq		$tmp3 Constant $const5 	%line{12} %argrw{"wrr"}
+	if		$tmp3 9 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:13
+#     } else if (Constant == "2 / PI") {
+	assign		Value $const6 	%line{13} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:14
+#         Value = M_2_PI;
+	eq		$tmp4 Constant $const7 	%line{14} %argrw{"wrr"}
+	if		$tmp4 12 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:15
+#     } else if (Constant == "2 * PI") {
+	assign		Value $const8 	%line{15} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:16
+#         Value = M_2PI;
+	eq		$tmp5 Constant $const9 	%line{16} %argrw{"wrr"}
+	if		$tmp5 15 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:17
+#     } else if (Constant == "4 * PI") {
+	assign		Value $const10 	%line{17} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:18
+#         Value = M_4PI;
+	eq		$tmp6 Constant $const11 	%line{18} %argrw{"wrr"}
+	if		$tmp6 18 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:19
+#     } else if (Constant == "2 / sqrt(PI)") {
+	assign		Value $const12 	%line{19} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:20
+#         Value = M_2_SQRTPI;
+	eq		$tmp7 Constant $const13 	%line{20} %argrw{"wrr"}
+	if		$tmp7 21 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:21
+#     } else if (Constant == "e") {
+	assign		Value $const14 	%line{21} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:22
+#         Value = M_E;
+	eq		$tmp8 Constant $const15 	%line{22} %argrw{"wrr"}
+	if		$tmp8 24 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:23
+#     } else if (Constant == "ln(2)") {
+	assign		Value $const16 	%line{23} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:24
+#         Value = M_LN2;
+	eq		$tmp9 Constant $const17 	%line{24} %argrw{"wrr"}
+	if		$tmp9 27 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:25
+#     } else if (Constant == "ln(10)") {
+	assign		Value $const18 	%line{25} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:26
+#         Value = M_LN10;
+	eq		$tmp10 Constant $const19 	%line{26} %argrw{"wrr"}
+	if		$tmp10 30 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:27
+#     } else if (Constant == "log2(e)") {
+	assign		Value $const20 	%line{27} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:28
+#         Value = M_LOG2E;
+	eq		$tmp11 Constant $const21 	%line{28} %argrw{"wrr"}
+	if		$tmp11 33 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:29
+#     } else if (Constant == "log10(e)") {
+	assign		Value $const22 	%line{29} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:30
+#         Value = M_LOG10E;
+	eq		$tmp12 Constant $const23 	%line{30} %argrw{"wrr"}
+	if		$tmp12 36 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:31
+#     } else if (Constant == "sqrt(2)") {
+	assign		Value $const24 	%line{31} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:32
+#         Value = M_SQRT2;
+	eq		$tmp13 Constant $const25 	%line{32} %argrw{"wrr"}
+	if		$tmp13 39 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:33
+#     } else if (Constant == "sqrt(1 / 2)") {
+	assign		Value $const26 	%line{33} %argrw{"wr"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:34
+#         Value = M_SQRT1_2;
+	eq		$tmp14 Constant $const27 	%line{34} %argrw{"wrr"}
+	if		$tmp14 42 42 	%argrw{"r"}
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\MathConstant.osl:35
+#     }
+	assign		Value $const28 	%line{35} %argrw{"wr"}
+	end

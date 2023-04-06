@@ -1,0 +1,19 @@
+OpenShadingLanguage 1.00
+# Compiled by oslc 1.13.0.1dev
+# options: -o C:\Users\MYSTER~1\AppData\Local\Temp\tmpikqg07w2.oso -IC:\Program Files (x86)\Steam\steamapps\common\Blender\3.5\scripts\addons\cycles\shader
+shader Clamp
+param	color	Color	0 0 0		%read{1,1} %write{2147483647,-1}
+param	color	Minimum	0 0 0		%read{2,2} %write{2147483647,-1}
+param	color	Maximum	1 1 1		%read{1,1} %write{2147483647,-1}
+oparam	color	Value	0 0 0		%meta{string,label,"Color"}  %read{2147483647,-1} %write{2,2}
+const	string	$const1	"clamp"		%read{0,0} %write{2147483647,-1}
+temp	color	$tmp1	%read{2,2} %write{1,1}
+code ___main___
+# C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\Clamp.osl:9
+# }
+	functioncall	$const1 3 	%filename{"C:\\Users\\MysteryPancake\\Desktop\\custom_shaders\\Blender\\Clamp.osl"} %line{9} %argrw{"r"}
+# C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h:140
+# color  clamp (color x, color minval, color maxval) { return max(min(x,maxval),minval); }
+	min		$tmp1 Color Maximum 	%filename{"C:\\Program Files (x86)\\Steam\\steamapps\\common\\Blender\\3.5\\scripts\\addons\\cycles\\shader/stdosl.h"} %line{140} %argrw{"wrr"}
+	max		Value $tmp1 Minimum 	%argrw{"wrr"}
+	end
